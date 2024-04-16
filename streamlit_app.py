@@ -31,17 +31,12 @@ class QuantileRegressionPyTorchMSE(nn.Module):
 
 def mse_loss(pred, y):
     return F.mse_loss(pred, y)
-input_length = 99
 
-model = QuantileRegressionPyTorchMSE(input_length=input_length)
-model.load_state_dict(torch.load("model_cpu.pth"))
+
+
 # Streamlit page configuration
 st.title('Power Meter Data Forecasting')
 
-# File uploader widget
-
-# if uploaded_file is not uploaded:
-#     st.text('Please upload a CSV file to proceed.')
 
 def preprocess_data(file):
     # Read the CSV file
@@ -62,6 +57,9 @@ scaler_x = load(open('scaler_x.pkl', 'rb'))
 scaler_y = load(open('scaler_y.pkl', 'rb'))
 
 if uploaded_file is not None:
+    input_length = 99
+    model = QuantileRegressionPyTorchMSE(input_length=input_length)
+    model.load_state_dict(torch.load("model_cpu.pth"))
     data = preprocess_data(uploaded_file)
     print(data.shape)
     final_data = torch.tensor(data).float()

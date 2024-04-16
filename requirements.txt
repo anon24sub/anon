@@ -7,4 +7,3 @@ streamlit
 streamlit_image_select
 torch
 torchvision
-pickle
